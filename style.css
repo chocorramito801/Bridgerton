@@ -1,0 +1,862 @@
+:root{
+    --rojo:#db0000;
+    --negro:#000000;
+    --blanco:#ffffff;
+    --gris:#b3b3b3;
+}
+
+body {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), #141414),
+                url("IMAGENES/banner2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-family: sans-serif;
+    margin-left: 80px;
+    overflow-x: hidden;
+}
+
+body.page-enter .sidebar,
+body.page-enter .contenido-principal {
+    animation: paginaEntrada 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body.page-enter .contenido-principal > * {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: bloqueEntrada 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.page-enter .contenido-principal > *:nth-child(1) { animation-delay: 0.08s; }
+body.page-enter .contenido-principal > *:nth-child(2) { animation-delay: 0.16s; }
+body.page-enter .contenido-principal > *:nth-child(3) { animation-delay: 0.24s; }
+body.page-enter .contenido-principal > *:nth-child(4) { animation-delay: 0.32s; }
+body.page-enter .contenido-principal > *:nth-child(5) { animation-delay: 0.4s; }
+
+.page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        radial-gradient(circle at center, rgba(173, 28, 28, 0.16) 0%, rgba(90, 0, 0, 0.08) 28%, rgba(0,0,0,0) 58%),
+        linear-gradient(180deg, rgba(9, 9, 9, 0.08), rgba(0, 0, 0, 0.92));
+    backdrop-filter: blur(6px);
+}
+
+body.page-leaving .page-transition {
+    animation: cortinaSalida 0.48s ease forwards;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 18px;
+}
+
+section.hero,
+.fila,
+.reina-hero,
+.reina-panel,
+.reina-trayectoria,
+.reina-texto,
+.temporadas-hero,
+.temporada-card,
+.personajes-selector,
+.personajes-panel {
+    scroll-snap-align: start;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 100;
+}
+
+.logo {
+    color: red;
+    font-size: 3rem;
+}
+
+.menu {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.menu a {
+    color: var(--gris);
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+.menu a.active {
+    color: white;
+    border-left: 3px solid red;
+    padding-left: 10px;
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    background-image: url(../Bridgerton/IMAGENES/banner.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+body.intro-activa {
+    overflow: hidden;
+}
+
+body.intro-activa .sidebar,
+body.intro-activa .contenido-principal {
+    visibility: hidden;
+}
+
+body.intro-completa .sidebar,
+body.intro-completa .contenido-principal {
+    visibility: visible;
+}
+
+.intro-netflix {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at center, rgba(186, 24, 24, 0.16) 0%, rgba(120, 0, 0, 0.08) 22%, rgba(0, 0, 0, 0) 58%),
+        linear-gradient(180deg, #050505 0%, #000 100%);
+    overflow: hidden;
+}
+
+.intro-netflix__glow {
+    position: absolute;
+    width: min(60vw, 760px);
+    height: min(90vh, 960px);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, rgba(255, 105, 105, 0.16) 0%, rgba(231, 0, 0, 0.12) 24%, rgba(110, 0, 0, 0.06) 42%, rgba(0, 0, 0, 0) 74%);
+    filter: blur(46px);
+    transform: scale(0.78);
+    animation: brilloNetflix 3.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-netflix__logo {
+    position: relative;
+    font-size: clamp(7rem, 20vw, 15rem);
+    font-family: "Netflix Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.08em;
+    color: transparent;
+    background: linear-gradient(90deg, #5a0007 0%, #ff4a4a 24%, #8c0009 52%, #ff7373 76%, #630008 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 16px rgba(255, 0, 0, 0.12), 0 0 46px rgba(255, 0, 0, 0.14);
+    transform: scale(0.72) translateY(8px);
+    opacity: 0;
+    animation: logoNetflix 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-netflix.oculta {
+    animation: desvanecerIntro 0.8s ease forwards;
+    pointer-events: none;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, transparent);
+}
+
+.hero-contenido {
+    position: relative;
+    z-index: 2;
+    padding: 60px;
+    max-width: 600px;
+}
+
+.netflix {
+    color: red;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.titulo-serie {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.progreso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 18px 0 22px;
+}
+
+.barra {
+    position: relative;
+    width: min(320px, 55vw);
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.22);
+    overflow: hidden;
+}
+
+.barra::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 9%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8b0000 0%, #e50914 55%, #ff4d4d 100%);
+}
+
+.progreso p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.88);
+}
+
+.botones {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn-play {
+    background: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-play:hover {
+    background: #e6e6e6;
+}
+
+.btn-icono {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn-icono:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+.info span {
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.hd {
+    border: 1px solid white;
+    padding: 2px 5px;
+}
+
+.clasificacion {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.promo {
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.promo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.promo a:hover {
+    opacity: 0.86;
+}
+
+.extra {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.fila {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.personajes-selector {
+    max-width: 1200px;
+    min-height: calc(100vh - 120px);
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: min-height 0.55s ease, transform 0.55s ease, margin 0.55s ease;
+}
+
+body.personajes-elegidos .personajes-selector {
+    min-height: auto;
+    margin: 70px auto 30px;
+    transform: translateY(0);
+}
+
+.personajes-opciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.personaje-opcion {
+    text-align: left;
+    padding: 34px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    color: white;
+    cursor: pointer;
+    transition: transform 0.4s ease, opacity 0.35s ease, filter 0.35s ease, background 0.35s ease;
+}
+
+.personaje-opcion:hover {
+    transform: translateY(-6px);
+    background: linear-gradient(180deg, rgba(162, 18, 31, 0.34), rgba(255,255,255,0.05));
+}
+
+.personaje-opcion h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    text-transform: uppercase;
+}
+
+.personaje-opcion--activa {
+    background: linear-gradient(180deg, rgba(162, 18, 31, 0.4), rgba(255,255,255,0.04));
+    border-color: rgba(255,255,255,0.26);
+    transform: translateY(-4px);
+}
+
+.personajes-panel {
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+.personajes-panel--visible {
+    animation: personajePanelEntra 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.personajes-panel__encabezado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.fila + .fila {
+    margin-top: 80px;
+}
+
+.fila:not(:last-child)::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-top: 40px;
+}
+
+.fila h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 25px;
+}
+
+section > h2 {
+    text-align: center;
+}
+
+.contenedor-carrusel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carrusel {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scrollbar-width: none;
+}
+
+.carrusel::-webkit-scrollbar {
+    display: none;
+}
+
+.item {
+    min-width: 260px;
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+.item img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.item p {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.reina-hero,
+.temporadas-hero {
+    max-width: 1200px;
+    margin: 50px auto 40px;
+    padding: 0 20px;
+}
+
+.reina-hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.reina-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: #f5dada;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+}
+
+.reina-titulo,
+.temporadas-titulo {
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    margin: 18px 0;
+}
+
+.reina-bajada,
+.temporadas-bajada {
+    max-width: 620px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.84);
+}
+
+.reina-datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0;
+}
+
+.reina-datos span {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff0f0;
+}
+
+.reina-cita {
+    margin: 28px 0 0;
+    padding: 24px 26px;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: linear-gradient(135deg, rgba(139, 14, 28, 0.28), rgba(255,255,255,0.03));
+    color: #fff4f4;
+    font-size: 1.12rem;
+    line-height: 1.7;
+}
+
+.reina-hero__imagenes {
+    position: relative;
+    min-height: 500px;
+}
+
+.reina-retrato {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 32px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.reina-retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+}
+
+.reina-retrato--principal {
+    inset: 20px 80px 60px 0;
+}
+
+.reina-retrato--principal img {
+    object-position: center 20%;
+}
+
+.reina-retrato--secundario {
+    width: 220px;
+    height: 290px;
+    right: 0;
+    bottom: 0;
+}
+
+.reina-panel,
+.temporadas-grid {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.reina-card,
+.temporadas-mini {
+    padding: 28px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.09);
+    backdrop-filter: blur(8px);
+}
+
+.reina-card__icono,
+.temporadas-mini i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(192, 21, 46, 0.25);
+    color: #ffd5d5;
+    font-size: 1.3rem;
+}
+
+.reina-card h2,
+.temporadas-mini h3 {
+    margin: 18px 0 12px;
+}
+
+.reina-card p,
+.temporadas-mini p,
+.reina-timeline__item p,
+.temporada-card__info p {
+    color: rgba(255,255,255,0.78);
+    line-height: 1.7;
+}
+
+.reina-trayectoria,
+.reina-texto {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 0 20px;
+}
+
+.reina-trayectoria__encabezado {
+    max-width: 620px;
+    margin-bottom: 28px;
+}
+
+.reina-trayectoria__encabezado h2,
+.reina-subtitulo {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 14px 0 0;
+}
+
+.reina-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.reina-timeline__item {
+    padding: 30px;
+    border-radius: 28px;
+    background: rgba(0,0,0,0.26);
+    border: 1px solid rgba(255,255,255,0.09);
+}
+
+.reina-timeline__item span,
+.temporada-card__numero {
+    display: inline-block;
+    color: #f1a2a2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+
+.reina-texto {
+    max-width: 900px;
+    line-height: 1.8;
+}
+
+.temporadas-hero {
+    padding-top: 24px;
+}
+
+.temporada-card {
+    max-width: 1200px;
+    margin: 36px auto 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.temporada-card__info,
+.temporada-card__video {
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.temporada-card__info {
+    padding: 28px;
+    background: linear-gradient(180deg, rgba(126, 12, 28, 0.4), rgba(255,255,255,0.04));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.temporada-card__info h2 {
+    margin: 12px 0 16px;
+    font-size: 2rem;
+    text-transform: capitalize;
+}
+
+.temporada-card__video {
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+}
+
+.temporada-card__video iframe {
+    display: block;
+}
+
+.formulario {
+    background-color: #181818;
+    width: min(60rem, 100%);
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.campos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo input,
+.campo textarea {
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #333;
+    color: white;
+    transition: 0.3s;
+}
+
+.campo:nth-child(3),
+.campo:nth-child(4) {
+    grid-column: 1 / 3;
+}
+
+.boton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .campos {
+        grid-template-columns: 1fr;
+    }
+
+    .personajes-opciones,
+    .reina-hero,
+    .temporada-card,
+    .reina-panel,
+    .reina-timeline,
+    .temporadas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .personajes-selector {
+        min-height: calc(100vh - 90px);
+    }
+
+    body.personajes-elegidos .personajes-selector {
+        min-height: auto;
+    }
+
+    .reina-hero__imagenes {
+        min-height: auto;
+        display: grid;
+        gap: 18px;
+    }
+
+    .reina-retrato {
+        position: static;
+        width: 100%;
+        height: 320px;
+    }
+
+    .temporada-card__video iframe {
+        height: 260px;
+    }
+}
+
+footer,
+.footer {
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-texto {
+    text-align: center;
+    margin: 0 auto;
+}
+
+@keyframes logoNetflix {
+    0% {
+        opacity: 0;
+        transform: scale(0.72) translateY(16px);
+        filter: blur(10px);
+    }
+    24% {
+        opacity: 1;
+        filter: blur(0);
+    }
+    68% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.08) translateY(-4px);
+    }
+}
+
+@keyframes brilloNetflix {
+    0% {
+        opacity: 0;
+        transform: scale(0.66);
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.14);
+    }
+}
+
+@keyframes desvanecerIntro {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes paginaEntrada {
+    from {
+        opacity: 0;
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes bloqueEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cortinaSalida {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes personajePanelEntra {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

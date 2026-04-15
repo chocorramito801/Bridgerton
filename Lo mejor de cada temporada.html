@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lo mejor de cada temporada</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="page-transition" aria-hidden="true"></div>
+
+<div class="sidebar">
+    <h2 class="logo">N</h2>
+    <nav class="menu">
+        <a href="index.html"><i class="fa-solid fa-house"></i></a>
+        <a href="Personajes.html"><i class="fa-solid fa-user"></i></a>
+        <a href="La reina charlotte.html"><i class="fa-solid fa-crown"></i></a>
+        <a href="Lo mejor de cada temporada.html" class="active"><i class="fa-solid fa-star"></i></a>
+    </nav>
+</div>
+
+<div class="contenido-principal">
+
+<section class="temporadas-hero">
+    <p class="reina-etiqueta">Momentos favoritos</p>
+    <h1 class="temporadas-titulo">Lo mejor de cada temporada</h1>
+    <p class="temporadas-bajada">Una selección visual para recorrer la evolución de Bridgerton: más romance, más tensión y una estética que siempre sabe brillar.</p>
+</section>
+
+<section class="temporada-card">
+    <div class="temporada-card__info">
+        <span class="temporada-card__numero">T1</span>
+        <h2>Primera temporada</h2>
+        <p>Daphne y Simon marcan el comienzo del fenómeno con una historia magnética, elegante y cargada de deseo contenido.</p>
+    </div>
+    <div class="temporada-card__video">
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/AdBweWvuG68" title="Bridgerton temporada 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</section>
+
+<section class="temporada-card">
+    <div class="temporada-card__info">
+        <span class="temporada-card__numero">T2</span>
+        <h2>Segunda temporada</h2>
+        <p>Anthony y Kate llevan el drama romántico a su punto más eléctrico con miradas, silencios y muchísima tensión.</p>
+    </div>
+    <div class="temporada-card__video">
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/hpAwUCuE96U" title="Bridgerton temporada 2" frameborder="0" allowfullscreen></iframe>
+    </div>
+</section>
+
+<section class="temporada-card">
+    <div class="temporada-card__info">
+        <span class="temporada-card__numero">T3</span>
+        <h2>Tercera temporada</h2>
+        <p>Penelope y Colin aportan una vibra más íntima y emotiva, donde el secreto y la ternura pesan tanto como el romance.</p>
+    </div>
+    <div class="temporada-card__video">
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/NyR6u4aUCa4" title="Bridgerton temporada 3" frameborder="0" allowfullscreen></iframe>
+    </div>
+</section>
+
+<section class="temporada-card">
+    <div class="temporada-card__info">
+        <span class="temporada-card__numero">T4</span>
+        <h2>Cuarta temporada</h2>
+        <p>Benedict inaugura un tono más soñador y misterioso, con una promesa visual que recuerda a un cuento romántico.</p>
+    </div>
+    <div class="temporada-card__video">
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/15KK0jSfDgE" title="Bridgerton temporada 4" frameborder="0" allowfullscreen></iframe>
+    </div>
+</section>
+
+</div>
+
+<script>
+document.body.classList.add('page-enter');
+
+document.querySelectorAll('a[href]').forEach(enlace => {
+const destino = enlace.getAttribute('href');
+
+if (!destino || destino.startsWith('#') || enlace.target === '_blank' || destino.startsWith('http')) {
+    return;
+}
+
+enlace.addEventListener('click', event => {
+    event.preventDefault();
+    document.body.classList.add('page-leaving');
+    setTimeout(() => {
+        window.location.href = destino;
+    }, 380);
+    });
+});
+
+</script>
+
+</body>
+</html>
